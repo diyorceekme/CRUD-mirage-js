@@ -1,45 +1,50 @@
-import {
-    createServer,
-    Model
-} from "miragejs"
+import { belongsTo, createServer, hasMany, Model } from "miragejs";
 
 createServer({
-    models: {
-        movie: Model
-    },
-    seeds(server) {
-        server.create("movie", { name: "Boy ota kambag'al ota", category: "Biznes", brand: "In Five and a Half Steps", price: 10 })
-        server.create("movie", { name: "Atom odatlari", category: "Ilmiy", brand: "The Definitive Guide to Visual Branding", price: 8 })
-        server.create("movie", { name: "Diqqat!", category: "Ilmiy", brand: "The Search for Belonging in a World Shaped by Branding", price: 5 })
-        server.create("movie", { name: "Steve Jobs", category: "Biografiya", brand: "A Guide for Designers", price: 12 })
-        server.create("movie", { name: "Million dollarlik xatolar", category: "Biznes", brand: "The Shape of Brands to Come", price: 10 })
-    },
-    routes() {
-        this.namespace = "api"
-        this.passthrough();
+  models: {
+    products: Model.extend({
+      actors: hasMany(),
+    }),
+    actor: Model.extend({
+      products: belongsTo(),
+    }),
+  },
 
-        this.get("/books", (schema, request) => {
-            return schema.movies.all()
-        })
+  seeds(server) {
+    server.create("product", {
+      name: "Apple iPhone 12 Pro Max 256GB ROM 6GB RAM",
+      short_name: "iPhone 12 Pro Max",
+      availability: true,
+      discount: 5,
+      price: 12500000,
+      register_date: "2020-12-20",
+      view_count: 10,
+      brand_id: 1000,
+      category_id: 1002,
+    });
+    server.create("product", {
+      name: "Apple iPhone 13 Pro Max 256GB ROM 6GB RAM",
+      short_name: "iPhone 13 Pro Max",
+      availability: true,
+      discount: 10,
+      price: 16500000,
+      register_date: "2021-12-20",
+      view_count: 25,
+      brand_id: 1000,
+      category_id: 1002,
+    });
+  },
 
-        this.post("/books", (schema, request) => {
-            let attrs = JSON.parse(request.requestBody)
+  routes() {
+    this.namespace = "api";
+    this.passthrough()
 
-            return schema.movies.create(attrs)
-        })
-
-        this.patch("/books/:id", (schema, request) => {
-            let newAttrs = JSON.parse(request.requestBody)
-            let id = request.params.id
-            let movie = schema.movies.find(id)
-
-            return movie.update(newAttrs)
-        })
-
-        this.delete("/books/:id", (schema, request) => {
-            let id = request.params.id
-
-            return schema.movies.find(id).destroy()
-        })
-    },
-})
+    this.get("/products", (schema, request) => {
+      return schema.products.all();
+    });
+    this.post("/products", (schema, request) => {
+      let attrs = JSON.parse(request.requestBody)
+      return schema.movies.create(attrs)
+    })
+  },
+});

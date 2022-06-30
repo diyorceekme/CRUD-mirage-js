@@ -149,6 +149,12 @@ export default function MiniDrawer() {
               </ListItemIcon>
               <ListItemText primary="Brand" style={{ color: "#1a1c1d" }} />
             </ListItem>
+            <ListItem button component={RouterLink} to='/order'>
+              <ListItemIcon style = {{ color: "#1a1c1d" }}>
+                <TableViewIcon />
+              </ListItemIcon>
+              <ListItemText primary="Order" style={{ color: "#1a1c1d" }} />
+            </ListItem>
         </List>
       </Drawer>
     </Box>

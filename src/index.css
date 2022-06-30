@@ -25,3 +25,9 @@ code {
 .css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
   border-color: #1a1c1d !important;
 }
+
+.css-1ygcj2i-MuiTableCell-root {
+  color: #065374 !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+}
